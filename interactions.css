@@ -1,0 +1,44 @@
+/* Tactile, scene-specific invitations to continue. */
+.show-scene{transition:opacity .65s ease,visibility .65s;grid-template-columns: minmax(0,53fr) minmax(0,47fr)}
+.scene-visual{transition:transform 1.3s cubic-bezier(.22,.61,.36,1);transform:scale(.98)}
+.scene-copy{transform:translateY(12px);transition:opacity .85s ease,transform 1.1s cubic-bezier(.22,.61,.36,1)}
+.scene-sparkles{animation:none}
+.show-scene:not(.is-active) .token-rays{animation-play-state:paused}
+.scene-curtain.ritual-curtain{will-change:opacity}
+.entry-panel{transition:transform 1.5s cubic-bezier(.22,.61,.36,1)}
+.entry-content{transition:opacity .65s ease,transform .85s cubic-bezier(.22,.61,.36,1)}
+@media(max-width:700px){.show-scene{grid-template-columns:1fr}}
+.ritual-action{display:inline-flex;flex-direction:column;align-items:center;gap:8px;position:relative;border:0;background:none!important;box-shadow:none;color:var(--wine);padding:10px 16px 4px;margin-top:12px;cursor:pointer;isolation:isolate;min-width:170px;-webkit-tap-highlight-color:transparent}
+.ritual-token{display:grid;place-items:center;width:88px;height:88px;position:relative;transition:transform .55s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 8px 10px #5b30361b)}
+.token-orbit{position:absolute;inset:4px;border:1px solid #a68155;outline:1px solid #b69a7260;outline-offset:5px;border-radius:50%;transition:transform .8s,border-color .4s}
+.token-symbol{font:italic 34px var(--serif);color:#966a40;position:relative;z-index:2;transition:transform .7s,opacity .4s}
+.token-rays{position:absolute;inset:-8px;border:1px dashed #b2946360;border-radius:50%;animation:orbit-turn 45s linear infinite}
+.ritual-label{font:italic 23px/1.1 var(--serif);color:var(--wine);transition:letter-spacing .4s}
+.ritual-hint{font:10px/1.4 var(--sans);letter-spacing:1px;color:#856957}.ritual-hint>span{display:inline-block;transition:transform .35s;margin-left:5px}
+.ritual-action:hover .ritual-token,.ritual-action:focus-visible .ritual-token{transform:translateY(-5px) scale(1.06)}.ritual-action:hover .token-orbit{transform:rotate(35deg)}.ritual-action:hover .ritual-hint>span{transform:translateX(6px)}.ritual-action:focus-visible{outline:2px solid #a68155;outline-offset:5px;border-radius:12px}
+.action-seal .token-orbit{inset:0;background:radial-gradient(circle at 35% 20%,#995165,#522839 75%);border:3px double #c29773;outline:1px solid #6b3747;outline-offset:3px;box-shadow:inset 0 0 0 5px #78404d,inset 0 0 0 6px #bc8b64}
+.action-seal .token-symbol{color:#f3d8a5;font-size:25px}.action-seal .token-rays{display:none}
+.action-ribbon .token-orbit{border-radius:4px;inset:17px 2px;transform:rotate(-8deg);background:#ebd7c3;border:1px solid #c3a077}.action-ribbon .token-symbol{font-size:50px}.action-ribbon .token-rays{border-style:solid;inset:35px -8px;border-radius:0;transform:rotate(12deg);animation:none;background:#9a5b6440}
+.action-promise .token-symbol{font-size:60px}.action-promise .token-orbit{border:0;outline:0;background:radial-gradient(#d2a1a350,transparent 70%)}
+.action-rings .token-symbol{font-size:60px}.action-rings .token-orbit{border-width:2px;inset:20px 30px 20px 0}.action-rings .token-rays{border:2px solid #b79659;inset:20px 0 20px 30px;animation:none}
+.action-bloom .token-symbol{font-size:67px;color:#587151}.action-bloom .token-orbit{border-color:#71845e;border-style:dashed}.action-bloom .token-rays{border-color:#6d825744}
+.action-blessing .token-orbit{border-radius:8px;transform:rotate(45deg);inset:16px;background:#ead1a4;border:3px double #a97649;outline:0}.action-blessing .token-symbol{color:#9b563c;font-size:40px}
+.theme-night .ritual-label{color:#f7e4c8}.theme-night .ritual-hint{color:#d7bea0}.theme-night .token-symbol{color:#efcc84}.theme-night .token-orbit{border-color:#c5a76f}.action-rhythm .token-rays{border:2px dotted #d0aa63;box-shadow:0 0 30px #bf85c333}.action-rhythm .token-symbol{font-size:42px}
+.action-sunshine .token-symbol{font-size:64px;color:#b68321}.action-sunshine .token-orbit{border:0;outline:0;background:radial-gradient(#dca83060,transparent 70%)}
+.action-vows .token-orbit{border-radius:4px;inset:9px 16px;border:1px solid #be9d6f;background:linear-gradient(90deg,#f2d9ae 49%,#ae8759 50%,#f7e3c3 51%)}.action-vows .token-symbol{color:#8c5e47}.action-replay .ritual-token{width:48px;height:48px}.action-replay .token-symbol{font:28px var(--serif)}.action-replay .token-rays{display:none}.action-replay .ritual-label{font-size:20px}
+.scene-copy .calendar{background:none;color:var(--wine);border:0;border-bottom:1px solid #b29370;padding:12px 0;font:italic 23px var(--serif);letter-spacing:0;display:flex;align-items:center;gap:10px}.scene-copy .calendar:hover{background:none;transform:none;color:#a46c45}.scene-copy .calendar>span{font-size:30px}
+.show-controls{height:45px;background:transparent;pointer-events:none;padding-bottom:8px;opacity:.7}.show-controls>*{pointer-events:auto}.show-controls #next{display:none}.show-controls #previous{border:0;width:30px;height:30px;font-size:19px}.show-controls .scene-progress{background:#ad937950}.show-controls #scene-counter{font-size:10px}.show-hint{font-size:8px}.show-actions button{background:transparent;border:0;border-bottom:1px solid #aa896350;border-radius:0;padding:7px 5px}.show-actions{gap:20px}
+.scene-curtain.ritual-curtain{transform:none;opacity:0;z-index:25}.ritual-curtain>span{font:italic clamp(30px,5vw,65px) var(--serif);text-align:center;padding:30px;max-width:90vw}
+.ritual-awakening .action-seal .ritual-token{transform:scale(1.2) rotate(-15deg);opacity:0;transition:transform .75s,opacity .75s}
+.ritual-awakening .action-ribbon .token-rays{transform:translateX(100px) rotate(25deg);opacity:0;transition:transform .8s,opacity .8s}
+.ritual-awakening .action-promise .token-symbol{transform:scale(1.8);filter:drop-shadow(0 0 20px #c66d8a)}
+.ritual-awakening .action-rings .token-orbit{transform:translateX(10px) rotate(30deg)}.ritual-awakening .action-rings .token-rays{transform:translateX(-10px) rotate(-30deg);transition:transform .7s}
+.ritual-awakening .action-bloom .token-symbol{transform:rotate(130deg) scale(1.8)}
+.ritual-awakening .action-blessing .token-orbit{transform:rotate(135deg) scale(1.3);opacity:0;transition:transform .8s,opacity .8s}
+.ritual-awakening .action-rhythm .token-rays{animation:rhythm-burst .3s alternate 3}.ritual-awakening .action-sunshine .token-symbol{transform:rotate(90deg) scale(2);filter:drop-shadow(0 0 25px #dca830)}
+.ritual-awakening .action-vows .token-orbit{transform:perspective(300px) rotateY(-100deg);transform-origin:left;transition:transform .8s}.ritual-awakening .action-replay .token-symbol{transform:rotate(-360deg)}
+@keyframes rhythm-burst{to{transform:scale(1.5);box-shadow:0 0 50px #e5b96499}}@keyframes orbit-turn{to{transform:rotate(360deg)}}
+#home .ritual-action{margin-top:12px}#home .scene-meta{margin:10px}.scene-copy .scene-rule{margin:8px 0}.scene-copy .scene-verse{margin:14px 0}.show-scene{padding-bottom:62px}
+@media(max-width:700px){.ritual-action{margin-top:4px;padding-top:4px;gap:6px}.ritual-token{width:60px;height:60px}.token-symbol{font-size:28px}.token-rays{inset:-5px}.ritual-label{font-size:21px}.ritual-hint{font-size:9px}.action-seal .token-symbol{font-size:19px}.action-ribbon .token-symbol,.action-rings .token-symbol{font-size:43px}.action-ribbon .token-rays{inset:25px -5px}.action-ribbon .token-orbit{inset:12px 0}.action-rings .token-orbit{inset:12px 19px 12px 0}.action-rings .token-rays{inset:12px 0 12px 19px}.action-bloom .token-symbol,.action-promise .token-symbol,.action-sunshine .token-symbol{font-size:48px}.action-blessing .token-orbit{inset:11px}.action-vows .token-orbit{inset:3px 10px}.scene-copy .scene-verse{margin:9px auto}.show-scene{grid-template-rows:minmax(140px,35svh) auto;gap:12px;padding-bottom:56px}.show-controls{height:38px}.scene-copy .calendar{font-size:19px;margin:4px auto;padding:7px 0}.action-replay{margin:0;padding:3px}.action-replay .ritual-token{display:none}.action-replay .ritual-hint{display:none}#home .ritual-token{width:78px;height:78px}#home .action-seal .token-symbol{font-size:23px}.show-actions{gap:13px}}
+@media(max-height:700px) and (max-width:700px){.show-scene{grid-template-rows:25svh auto;gap:7px}.ritual-token{width:47px;height:47px}.ritual-hint{display:none}.ritual-label{font-size:19px}.scene-copy h1{margin:7px 0}.scene-copy .scene-meta{margin:7px 0}.action-rings .token-orbit{inset:10px 14px 10px 0}.action-rings .token-rays{inset:10px 0 10px 14px}}
+@media(prefers-reduced-motion:reduce){.token-rays{animation:none}.ritual-action *{animation:none!important;transition:none!important}.ritual-curtain{display:none}}
