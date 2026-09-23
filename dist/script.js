@@ -60,17 +60,25 @@ music.loop=true;
 music.volume=0;
 music.src='assets/kudmayi.mp3';
 document.body.append(music);
+// A quiet, locally bundled door movement sound plays only on the opening gesture.
+const doorSound=new Audio('assets/door-open-soft.wav');
+doorSound.id='door-sound';
+doorSound.preload='auto';
+doorSound.volume=.35;
+doorSound.loop=false;
+document.body.append(doorSound);
+function playDoorSound(){doorSound.currentTime=0;doorSound.play().catch(()=>{});}
 let musicOn=false,playRequest=0,resumeOnVisible=false,musicFadeFrame=0;
 function fadeMusic(target,duration=1200){cancelAnimationFrame(musicFadeFrame);const from=music.volume,start=performance.now();function frame(now){const progress=Math.min(1,(now-start)/duration),ease=1-Math.pow(1-progress,3);music.volume=from+(target-from)*ease;if(progress<1)musicFadeFrame=requestAnimationFrame(frame)}musicFadeFrame=requestAnimationFrame(frame)}
 function renderSound(){const b=document.querySelector('#sound-toggle');b.setAttribute('aria-pressed',String(musicOn));b.setAttribute('aria-label',musicOn?'Mute music':'Turn music on');b.querySelector('span').textContent=musicOn?'Sound on':'Sound off'}
 async function startMusic(){const request=++playRequest;musicOn=true;renderSound();try{music.volume=0;await music.play();if(request!==playRequest)return;fadeMusic(.45,reduced.matches?1:1400);renderSound()}catch(error){if(request!==playRequest)return;musicOn=false;renderSound();if(error.name!=='AbortError')document.querySelector('#sound-toggle span').textContent=error.name==='NotAllowedError'?'Tap for music':'Sound unavailable'}}
-function stopMusic(){playRequest++;cancelAnimationFrame(musicFadeFrame);music.pause();musicOn=false;renderSound()}
+function stopMusic(){doorSound.pause();playRequest++;cancelAnimationFrame(musicFadeFrame);music.pause();musicOn=false;renderSound()}
 music.addEventListener('error',()=>{stopMusic();document.querySelector('#sound-toggle span').textContent='Sound unavailable'});
 document.querySelector('#sound-toggle').onclick=()=>{resumeOnVisible=false;musicOn?stopMusic():startMusic()};
 document.addEventListener('visibilitychange',()=>{if(document.hidden){resumeOnVisible=musicOn;if(musicOn)stopMusic()}else if(resumeOnVisible){resumeOnVisible=false;startMusic()}});
 window.addEventListener('pagehide',()=>{resumeOnVisible=false;stopMusic()});
 const initialHash=location.hash;const initial=scenes.findIndex(s=>'#'+s.id===initialHash);activate(initial>=0?initial:0,false);entry.showModal();
 function finishEntry(){entry.close();document.querySelector('meta[name="theme-color"]').content='#f5eee4';scenes[current].querySelector('h1').focus({preventScroll:true})}
-function openInvitation(){startMusic();if(reduced.matches){finishEntry();return}entry.classList.add('opening');setTimeout(finishEntry,2150)}
+function openInvitation(){if(entry.classList.contains('opening'))return;startMusic();playDoorSound();if(reduced.matches){finishEntry();return}entry.classList.add('opening');setTimeout(finishEntry,2400)}
 document.querySelector('.entry-open').onclick=openInvitation;
 document.querySelector('#calendar').addEventListener('click',()=>{const content=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Siddhant and Aanchal//Wedding//EN','CALSCALE:GREGORIAN','BEGIN:VEVENT','UID:siddhant-aanchal-wedding-20270309','DTSTAMP:20260918T000000Z','DTSTART;VALUE=DATE:20270309','DTEND;VALUE=DATE:20270311','SUMMARY:Siddhant & Aanchal — Wedding Celebrations','DESCRIPTION:9 March: Ring ceremony\\, Mehendi\\, Tilak and Sangeet. 10 March: Haldi and Wedding. Timings and venue to follow.','END:VEVENT','END:VCALENDAR'].join('\r\n');const url=URL.createObjectURL(new Blob([content],{type:'text/calendar;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Siddhant-and-Aanchal-Wedding.ics';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);document.querySelector('#calendar-status').textContent='Your calendar invitation is ready to add.'});
